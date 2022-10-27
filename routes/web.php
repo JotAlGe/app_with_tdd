@@ -23,3 +23,8 @@ Route::get('/foods', function () {
         'foods' => Food::all()
     ]);
 });
+
+
+Route::get('/foods/{food}', function (Food $food) {
+    return view('foods.show', compact('food'));
+});

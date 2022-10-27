@@ -33,4 +33,22 @@ class FoodTest extends TestCase
         $this->assertModelExists($foods[1], $foods);
         $this->assertModelExists($foods[2], $foods);
     }
+
+    /**
+     * @test
+     */
+    public function a_user_can_see_the_food_details(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create();
+
+        $this->actingAs($user, 'web')
+            ->get('/foods/' . $food->id)
+            ->assertStatus(200)
+            ->assertSee([
+                $food->name,
+                $food->description,
+                $food->price
+            ]);
+    }
 }

@@ -1,4 +1,4 @@
-# Meals App
+# Meals App with TDD - :pizza: 
 Food app, users, and shopping cart to add food.
 
 
