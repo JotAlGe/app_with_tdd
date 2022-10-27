@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Food;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/foods', function () {
+    return view('foods.index', [
+        'foods' => Food::all()
+    ]);
 });
