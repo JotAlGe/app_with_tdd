@@ -43,8 +43,9 @@ class FoodTest extends TestCase
         $food = Food::factory()->create();
 
         $this->actingAs($user, 'web')
-            ->get('/foods/' . $food->id)
+            ->get(route('foods.show', $food))
             ->assertStatus(200)
+            ->assertViewIs('foods.show')
             ->assertSee([
                 $food->name,
                 $food->description,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FoodController;
 use App\Models\Food;
 use Illuminate\Support\Facades\Route;
 
@@ -18,13 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/foods', function () {
-    return view('foods.index', [
-        'foods' => Food::all()
-    ]);
-});
-
-
-Route::get('/foods/{food}', function (Food $food) {
-    return view('foods.show', compact('food'));
-});
+Route::resource('foods', FoodController::class)->names('foods');
