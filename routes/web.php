@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FoodController;
+use App\Models\Cart;
+use App\Models\Food;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +23,6 @@ Route::get('/', function () {
 });
 
 Route::resource('foods', FoodController::class)->names('foods');
+
+
+Route::resource('carts', CartController::class)->names('carts');

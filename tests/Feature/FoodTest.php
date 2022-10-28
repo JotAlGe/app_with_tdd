@@ -34,6 +34,7 @@ class FoodTest extends TestCase
         $this->assertModelExists($foods[2], $foods);
     }
 
+
     /**
      * @test
      */
@@ -51,18 +52,5 @@ class FoodTest extends TestCase
                 $food->description,
                 $food->price
             ]);
-    }
-
-    /**
-     * @test
-     */
-    public function a_user_can_see_create_view(): void
-    {
-        $user = User::factory()->create();
-
-        $this->actingAs($user, 'web')
-            ->get(route('foods.create'))
-            ->assertStatus(200)
-            ->assertViewIs('foods.create');
     }
 }
