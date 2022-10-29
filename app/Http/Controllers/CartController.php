@@ -71,7 +71,9 @@ class CartController extends Controller
      */
     public function update(UpdateCartRequest $request, Cart $cart)
     {
-        //
+        $this->authorize('update', $cart);
+        $cart->update($request->validated());
+        return redirect()->route('foods.index');
     }
 
     /**
@@ -82,6 +84,9 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        $this->authorize('delete', $cart);
+
+        $cart->delete();
+        return response()->json('success', 204);
     }
 }

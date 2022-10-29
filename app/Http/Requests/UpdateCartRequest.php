@@ -13,7 +13,7 @@ class UpdateCartRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('update', $this->cart);
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateCartRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'food_id' => ['integer']
         ];
     }
 }

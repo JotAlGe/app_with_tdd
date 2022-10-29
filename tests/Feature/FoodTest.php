@@ -86,10 +86,13 @@ class FoodTest extends TestCase
      */
     public function a_user_can_delete_their_meal(): void
     {
+        $user = User::factory()->create();
         $food = Food::factory()->create();
 
         $food->delete();
 
-        $this->assertModelMissing($food);
+        $this->assertModelMissing($food, [
+            'user_id' => $user->id
+        ]);
     }
 }

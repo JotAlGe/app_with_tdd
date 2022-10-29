@@ -23,6 +23,4 @@ Route::get('/', function () {
 });
 
 Route::resource('foods', FoodController::class)->names('foods');
-
-
 Route::resource('carts', CartController::class)->names('carts');

@@ -83,7 +83,7 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        $this->authorize('delte', $food);
+        $this->authorize('delete', $food);
         $food->delete();
         return redirect()->route('foods.index');
     }
