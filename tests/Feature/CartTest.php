@@ -31,6 +31,24 @@ class CartTest extends TestCase
     /**
      * @test
      */
+    public function a_user_can_see_the_edit_view(): void
+    {
+        $user = User::factory()->create();
+        $cart = Cart::factory()->create();
+
+        $this->actingAs($user)
+            ->get('/carts/' . $cart->id . '/edit')
+            ->assertStatus(200)
+            ->assertSee([
+                $cart->name,
+                $cart->description
+            ]);
+    }
+
+
+    /**
+     * @test
+     */
     public function a_user_cannot_update_any_shopping_cart(): void
     {
         $user = User::factory()->create();
