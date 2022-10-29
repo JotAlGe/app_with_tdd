@@ -67,4 +67,29 @@ class FoodTest extends TestCase
             ->put('/foods/' . $food->id)
             ->assertStatus(403);
     }
+
+    /**
+     * @test
+     */
+    public function a_user_cannot_delete_any_meal(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create();
+
+        $this->actingAs($user)
+            ->delete('/foods/' . $food->id)
+            ->assertStatus(403);
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_delete_their_meal(): void
+    {
+        $food = Food::factory()->create();
+
+        $food->delete();
+
+        $this->assertModelMissing($food);
+    }
 }

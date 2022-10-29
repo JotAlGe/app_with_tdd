@@ -65,7 +65,7 @@ class FoodPolicy
      */
     public function delete(User $user, Food $food)
     {
-        //
+        return $user->id === $food->user_id;
     }
 
     /**
