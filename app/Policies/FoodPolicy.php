@@ -53,7 +53,7 @@ class FoodPolicy
      */
     public function update(User $user, Food $food)
     {
-        //
+        return $user->id === $food->user_id;
     }
 
     /**

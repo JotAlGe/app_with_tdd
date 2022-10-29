@@ -72,7 +72,7 @@ class FoodController extends Controller
      */
     public function update(UpdateFoodRequest $request, Food $food)
     {
-        //
+        $this->authorize('update', $food);
     }
 
     /**

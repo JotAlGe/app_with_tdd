@@ -53,4 +53,18 @@ class FoodTest extends TestCase
                 $food->price
             ]);
     }
+
+
+    /**
+     * @test
+     */
+    public function a_user_cannot_update_any_meal(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create();
+
+        $this->actingAs($user)
+            ->put('/foods/' . $food->id)
+            ->assertStatus(403);
+    }
 }
