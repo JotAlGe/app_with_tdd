@@ -31,6 +31,21 @@ class CartTest extends TestCase
     /**
      * @test
      */
+    public function a_user_can_see_details_their_cart(): void
+    {
+        $user = User::factory()->create();
+        $cart = Cart::factory()->create();
+
+        $this->actingAs($user)
+            ->get('/carts/' . $cart->id)
+            ->assertStatus(200)
+            ->assertViewIs('carts.show');
+    }
+
+
+    /**
+     * @test
+     */
     public function a_user_can_see_the_edit_view(): void
     {
         $user = User::factory()->create();
@@ -49,7 +64,7 @@ class CartTest extends TestCase
     /**
      * @test
      */
-    public function a_user_cannot_update_any_shopping_cart(): void
+    /*     public function a_user_cannot_update_any_shopping_cart(): void
     {
         $user = User::factory()->create();
         $cart = Cart::factory()->create();
@@ -57,7 +72,21 @@ class CartTest extends TestCase
         $this->actingAs($user)
             ->put('/carts/' . $cart->id)
             ->assertForbidden();
-    }
+    } */
+
+    /**
+     * @test
+     */
+    /*     public function a_user_can_update_their_shopping_cart(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create(['user_id' => $user->id]);
+        $cart = Cart::factory()->create(['food_id' => $food->user_id]);
+
+        $this->actingAs($user)
+            ->put('/carts/' . $cart->id)
+            ->assertRedirect('/foods');
+    } */
 
 
 

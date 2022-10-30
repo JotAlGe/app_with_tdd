@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
-use Illuminate\Contracts\View\View;
 
 class CartController extends Controller
 {
@@ -49,7 +48,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        //
+        return view('carts.show', compact('cart'));
     }
 
     /**
@@ -60,7 +59,7 @@ class CartController extends Controller
      */
     public function edit(Cart $cart)
     {
-        return view('foods.edit', compact('cart'));
+        return view('carts.edit', compact('cart'));
     }
 
     /**
