@@ -17,7 +17,7 @@ class UpdateFoodRequest extends FormRequest
         return [
             'name' => ['required', 'min:5', 'max:50', 'string'],
             'description' => ['required', 'max:500', 'string'],
-            'price' => ['required', 'float']
+            'price' => ['required']
         ];
     }
 }

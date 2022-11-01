@@ -11,9 +11,9 @@ class StoreFoodRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreFoodRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'min:3', 'max:50'],
+            'description' => ['required', 'min:3'],
+            'price' => ['required'],
+            'user_id' => ['required']
         ];
     }
 }

@@ -64,35 +64,6 @@ class CartTest extends TestCase
     /**
      * @test
      */
-    /*     public function a_user_cannot_update_any_shopping_cart(): void
-    {
-        $user = User::factory()->create();
-        $cart = Cart::factory()->create();
-
-        $this->actingAs($user)
-            ->put('/carts/' . $cart->id)
-            ->assertForbidden();
-    } */
-
-    /**
-     * @test
-     */
-    /*     public function a_user_can_update_their_shopping_cart(): void
-    {
-        $user = User::factory()->create();
-        $food = Food::factory()->create(['user_id' => $user->id]);
-        $cart = Cart::factory()->create(['food_id' => $food->user_id]);
-
-        $this->actingAs($user)
-            ->put('/carts/' . $cart->id)
-            ->assertRedirect('/foods');
-    } */
-
-
-
-    /**
-     * @test
-     */
     public function a_user_can_delete_their_shopping_cart(): void
     {
         $user = User::factory()->create();

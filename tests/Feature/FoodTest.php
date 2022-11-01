@@ -34,6 +34,35 @@ class FoodTest extends TestCase
         $this->assertModelExists($foods[2], $foods);
     }
 
+    /**
+     * @test
+     */
+    public function a_user_can_see_the_create_view(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user, 'web')
+            ->get('/foods/create')
+            ->assertStatus(200)
+            ->assertViewIs('foods.create');
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_store_a_food(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->post('/foods', [
+                'name' => 'Chicken',
+                'description' => 'Chicken is a special animal that has special',
+                'price' => 5.00,
+                'user_id' => $user->id
+            ])
+            ->assertRedirect('/foods');
+    }
 
     /**
      * @test
@@ -58,6 +87,26 @@ class FoodTest extends TestCase
     /**
      * @test
      */
+    public function a_user_can_see_the_edit_view(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create();
+
+        $this->actingAs($user, 'web')
+            ->get('/foods/' . $food->id . '/edit')
+            ->assertStatus(200)
+            ->assertViewIs('foods.edit')
+            ->assertSee([
+                $food->name,
+                $food->description,
+                $food->price
+            ]);
+    }
+
+
+    /**
+     * @test
+     */
     public function a_user_cannot_update_any_meal(): void
     {
         $user = User::factory()->create();
@@ -66,6 +115,23 @@ class FoodTest extends TestCase
         $this->actingAs($user)
             ->put('/foods/' . $food->id)
             ->assertStatus(403);
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_update_their_food(): void
+    {
+        $user = User::factory()->create();
+        $food = Food::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user)
+            ->put('/foods/' . $food->id, [
+                'name' => 'new name',
+                'description' => 'new description',
+                'price' => 1.55
+            ])
+            ->assertRedirect(route('foods.index'));
     }
 
     /**
@@ -87,9 +153,11 @@ class FoodTest extends TestCase
     public function a_user_can_delete_their_meal(): void
     {
         $user = User::factory()->create();
-        $food = Food::factory()->create();
+        $food = Food::factory()->create(['user_id' => $user->id]);
 
-        $food->delete();
+        $this->actingAs($user)
+            ->delete('/foods/' . $food->id)
+            ->assertStatus(302);
 
         $this->assertModelMissing($food, [
             'user_id' => $user->id

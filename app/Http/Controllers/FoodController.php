@@ -38,7 +38,8 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
-        //
+        Food::create($request->validated());
+        return redirect()->route('foods.index');
     }
 
     /**
@@ -60,7 +61,7 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+        return view('foods.edit', compact('food'));
     }
 
     /**
@@ -73,6 +74,9 @@ class FoodController extends Controller
     public function update(UpdateFoodRequest $request, Food $food)
     {
         $this->authorize('update', $food);
+
+        $food->update($request->validated());
+        return redirect()->route('foods.index');
     }
 
     /**
