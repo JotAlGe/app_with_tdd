@@ -22,5 +22,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('foods', FoodController::class)->names('foods');
-Route::resource('carts', CartController::class)->names('carts');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home')->middleware('auth');
+
+    Route::resources([
+        'foods' => FoodController::class,
+        'carts' => CartController::class,
+    ]);
+});
